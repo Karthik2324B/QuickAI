@@ -1,0 +1,29 @@
+import React from 'react'
+import { assets } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
+import { useClerk, useUser, UserButton } from '@clerk/clerk-react'
+
+const Navbar = () => {
+
+    const navigate = useNavigate()
+    const { user } = useUser()
+    const { openSignIn } = useClerk()
+
+
+    return (
+        <div className='flex items-center justify-between w-full fixed z-5 backdrop-blur-2xl py-3 px-4 sm:px-20 xl:px-32'>
+            <img src={assets.logo} alt="logo" className='w-32 sm:w-34 cursor-pointer' onClick={() => navigate('/')} />
+            {
+                user ? <UserButton /> : (
+                    <button className='flex items-center gap-2 cursor-pointer rounded-full text-sm bg-primary text-white px-10 py-2.5' onClick={openSignIn}>
+                        Get Started <ArrowRight className='w-4 h-4' />
+                    </button>
+                )
+            }
+
+        </div>
+    )
+}
+
+export default Navbar
