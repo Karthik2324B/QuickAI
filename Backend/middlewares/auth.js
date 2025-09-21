@@ -13,7 +13,6 @@ export const auth = async (req, res, next) => {
 
     if (!hasPremiumPlan && !user.privateMetadata.free_usage) {
       req.free_usage = user.privateMetadata.free_usage;
-      return res.status(401).json({ error: "Unauthorized" });
     } else {
       await clerkClient.users.updateUserMetadata(userId, {
         privateMetadata: {
